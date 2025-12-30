@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>رفيق رمضان | وجبات اليوم</title>
 
-  <!-- Optional: load Tajawal from Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700&display=swap" rel="stylesheet">
@@ -14,10 +13,16 @@
     :root{
       --bg:#2B1F3A;
       --gold:#C8A86B;
+      --gold2:#BFA063;
       --text:#F3E7D3;
       --muted:#C9BFAF;
+      --panel: rgba(255,255,255,0.035);
+      --panel2: rgba(0,0,0,0.14);
       --mosque:#5A4B72;
+      --stroke: rgba(200,168,107,0.9);
+      --strokeSoft: rgba(200,168,107,0.55);
     }
+
     *{box-sizing:border-box}
     body{
       margin:0;
@@ -29,36 +34,52 @@
       align-items:center;
       justify-content:center;
       padding:18px;
+      position:relative;
+      overflow-x:hidden;
     }
 
-    /* subtle pattern */
+    /* ultra-subtle geometric dots pattern */
     body::before{
       content:"";
       position:fixed;
       inset:0;
       background:
-        radial-gradient(circle at 10% 20%, rgba(255,255,255,.05) 0 1px, transparent 2px) 0 0 / 28px 28px;
+        radial-gradient(circle at 15% 20%, rgba(255,255,255,.06) 0 1px, transparent 2px) 0 0 / 28px 28px,
+        radial-gradient(circle at 80% 70%, rgba(255,255,255,.05) 0 1px, transparent 2px) 0 0 / 34px 34px;
       opacity:.06;
       pointer-events:none;
     }
 
     .card{
-      width:min(720px, 96vw);
-      border:1px solid rgba(200,168,107,.9);
-      border-radius:18px;
-      padding:22px 20px 16px;
-      background: rgba(255,255,255,0.03);
+      width:min(760px, 96vw);
+      border:1px solid var(--stroke);
+      border-radius:20px;
+      padding:22px 20px 18px;
+      background: var(--panel);
       position:relative;
       overflow:hidden;
+      box-shadow: 0 10px 30px rgba(0,0,0,.18);
     }
+
+    /* decorative top & bottom arabesque line ornaments */
+    .ornament{
+      position:absolute;
+      left:14px;
+      right:14px;
+      height:26px;
+      opacity:.75;
+      pointer-events:none;
+    }
+    .ornament.top{ top:10px; }
+    .ornament.bottom{ bottom:10px; transform: scaleY(-1); }
 
     .header{
       display:flex;
       flex-direction:column;
       align-items:center;
-      gap:6px;
       text-align:center;
-      margin-top:6px;
+      gap:6px;
+      margin-top:18px; /* to clear top ornament */
       margin-bottom:14px;
     }
     .title{
@@ -69,7 +90,8 @@
     .subtitle{
       font-size:14px;
       color:var(--muted);
-      line-height:1.6;
+      line-height:1.7;
+      max-width:46ch;
     }
 
     .actions{
@@ -79,46 +101,78 @@
       justify-content:center;
       margin:16px 0 12px;
     }
+
     button{
-      border:1px solid rgba(200,168,107,.95);
-      background: transparent;
+      border:1px solid var(--stroke);
+      background: rgba(200,168,107,0.12); /* clearer than transparent */
       color: var(--text);
-      padding:10px 14px;
+      padding:11px 16px;
       border-radius:12px;
       cursor:pointer;
       font-size:16px;
-      font-weight:500;
-      transition: transform .08s ease, background .2s ease;
+      font-weight:700;
+      transition: transform .08s ease, background .2s ease, border-color .2s ease;
+      min-width: 140px;
     }
-    button:hover{ background: rgba(200,168,107,.08); }
-    button:active{ transform: scale(.98); }
+    button:hover{
+      background: rgba(200,168,107,0.18);
+      border-color: rgba(200,168,107,1);
+    }
+    button:active{ transform: scale(.985); }
 
+    /* result panel */
     .result{
-      border:1px dashed rgba(200,168,107,.55);
-      border-radius:14px;
-      padding:14px;
-      min-height:74px;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      text-align:center;
-      line-height:1.9;
-      background: rgba(0,0,0,0.12);
-      font-size:18px;
+      border:1px dashed var(--strokeSoft);
+      border-radius:16px;
+      padding:14px 14px;
+      background: var(--panel2);
     }
+
+    .line{
+      display:flex;
+      gap:10px;
+      align-items:flex-start;
+      justify-content:flex-start;
+      padding:10px 10px;
+      border-radius:12px;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.04);
+    }
+    .line + .line{ margin-top:10px; }
+
+    .label{
+      flex:0 0 auto;
+      border:1px solid rgba(200,168,107,.55);
+      color: rgba(243,231,211,.95);
+      padding:6px 10px;
+      border-radius:999px;
+      font-weight:700;
+      font-size:14px;
+      background: rgba(200,168,107,0.08);
+      min-width: 86px;
+      text-align:center;
+    }
+    .value{
+      flex:1 1 auto;
+      font-size:18px;
+      line-height:1.8;
+      padding-top:2px;
+    }
+
     .hint{
       margin-top:10px;
       text-align:center;
       font-size:12.5px;
-      color: rgba(243,231,211,.75);
+      color: rgba(243,231,211,.72);
     }
 
-    /* mosque silhouette */
+    /* subtle mosque silhouette */
     .mosque{
       margin-top:14px;
       display:flex;
       justify-content:center;
-      opacity:.55;
+      opacity:.50;
+      padding-bottom:18px; /* clear bottom ornament */
     }
     svg{max-width:520px; width:100%; height:auto;}
   </style>
@@ -126,9 +180,18 @@
 
 <body>
   <main class="card">
+    <!-- Ornament Top -->
+    <svg class="ornament top" viewBox="0 0 900 60" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <path d="M50 30C110 8 160 8 220 30C280 52 330 52 390 30C450 8 500 8 560 30C620 52 670 52 730 30C790 8 840 8 900 30"
+            stroke="rgba(200,168,107,0.45)" stroke-width="3" stroke-linecap="round"/>
+      <path d="M80 30c20-14 40-14 60 0c-20 14-40 14-60 0Z" fill="rgba(200,168,107,0.22)"/>
+      <path d="M360 30c20-14 40-14 60 0c-20 14-40 14-60 0Z" fill="rgba(200,168,107,0.22)"/>
+      <path d="M640 30c20-14 40-14 60 0c-20 14-40 14-60 0Z" fill="rgba(200,168,107,0.22)"/>
+    </svg>
+
     <div class="header">
       <div class="title">وجبات اليوم</div>
-      <div class="subtitle">اقتراحات فلسطينية للإفطار والسحور — تتغيّر عشوائيًا كل مرة</div>
+      <div class="subtitle">اقتراحات فلسطينية وأردنية وسورية للإفطار والسحور — تتغيّر عشوائيًا كل مرة</div>
     </div>
 
     <div class="actions">
@@ -137,9 +200,19 @@
       <button onclick="pickBoth()">اقترح الاثنين</button>
     </div>
 
-    <div id="result" class="result">اضغط زر لاقتراح وجبة ✨</div>
+    <section class="result" id="resultWrap">
+      <div class="line" id="iftarLine" style="display:none;">
+        <div class="label">الإفطار</div>
+        <div class="value" id="iftarText"></div>
+      </div>
 
-    <div class="hint">يمكنك تعديل القائمة لاحقًا دون تغيير الـQR.</div>
+      <div class="line" id="suhoorLine" style="display:none;">
+        <div class="label">السحور</div>
+        <div class="value" id="suhoorText"></div>
+      </div>
+
+      <div class="hint" id="hint">اضغط زر لاقتراح وجبة ✨</div>
+    </section>
 
     <div class="mosque" aria-hidden="true">
       <svg viewBox="0 0 900 140" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -150,124 +223,153 @@
         <path d="M80 120H820" stroke="rgba(200,168,107,.55)" stroke-width="3"/>
       </svg>
     </div>
+
+    <!-- Ornament Bottom -->
+    <svg class="ornament bottom" viewBox="0 0 900 60" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <path d="M50 30C110 8 160 8 220 30C280 52 330 52 390 30C450 8 500 8 560 30C620 52 670 52 730 30C790 8 840 8 900 30"
+            stroke="rgba(200,168,107,0.45)" stroke-width="3" stroke-linecap="round"/>
+      <path d="M80 30c20-14 40-14 60 0c-20 14-40 14-60 0Z" fill="rgba(200,168,107,0.22)"/>
+      <path d="M360 30c20-14 40-14 60 0c-20 14-40 14-60 0Z" fill="rgba(200,168,107,0.22)"/>
+      <path d="M640 30c20-14 40-14 60 0c-20 14-40 14-60 0Z" fill="rgba(200,168,107,0.22)"/>
+    </svg>
   </main>
 
 <script>
-const iftar = [
-  "مقلوبة دجاج + سلطة لبن",
-  "مقلوبة باذنجان + سلطة",
-  "مقلوبة زهرة + لبن",
-  "مسخّن (خبز طابون ودجاج وبصل وسماق) + لبن",
-  "مسخّن رول + سلطة خضراء",
-  "مفتول فلسطيني + سلطة",
-  "مفتول باللحم + لبن",
-  "منسف دجاج + لبن",
-  "منسف لحم + لبن",
-  "كفتة بالطحينة + رز",
-  "كفتة بندورة + رز",
-  "ملوخية + رز + ليمون",
-  "محشي كوسا وباذنجان",
-  "ورق دوالي + سلطة زبادي",
-  "محشي ملفوف + لبن",
-  "صينية بطاطا باللحم + سلطة",
-  "صينية كوسا باللبن",
-  "كبة مقلية + سلطة",
-  "كبة مشوية + لبن",
-  "كبة لبنية + رز",
-  "كبة بالصينية + سلطة",
-  "شيش برك + رز أبيض",
-  "شيخ المحشي + لبن",
-  "فتة حمص + لبن",
-  "فتة مكدوس",
-  "يبرق (ورق عنب) + لبن",
-  "فريكة بالدجاج",
-  "رز بحمص ولحم",
-  "أرز بالشعيرية + دجاج",
-  "لحمة بكرز",
-  "شاورما دجاج + بطاطا",
-  "شاورما لحم + سلطة",
-  "يخنة فاصولياء خضرا + رز",
-  "يخنة بسلة باللحم + رز",
-  "لبن مطبوخ + رز",
-  "رشوف",
-  "مكمورة",
-  "ثريد",
-  "رز بالبازيلا والجزر + دجاج",
-  "كبسة دجاج",
-  "عدس مطبوخ + خبز",
-  "مجدّرة + سلطة",
-  "فاصولياء بيضا باللحم + رز",
-  "كوسا محشي باللبن",
-  "دجاج محمّر بالبطاطا",
-  "صينية دجاج بالفرن",
-  "صينية سمك بالفرن",
-  "شوربة عدس + خبز",
-  "شوربة خضار"
-];
+  const iftar = [
+    "مقلوبة دجاج + سلطة لبن",
+    "مقلوبة باذنجان + سلطة",
+    "مقلوبة زهرة + لبن",
+    "مسخّن (خبز طابون ودجاج وبصل وسماق) + لبن",
+    "مسخّن رول + سلطة خضراء",
+    "مفتول فلسطيني + سلطة",
+    "مفتول باللحم + لبن",
+    "منسف دجاج + لبن",
+    "منسف لحم + لبن",
+    "كفتة بالطحينة + رز",
+    "كفتة بندورة + رز",
+    "ملوخية + رز + ليمون",
+    "محشي كوسا وباذنجان",
+    "ورق دوالي + سلطة زبادي",
+    "محشي ملفوف + لبن",
+    "صينية بطاطا باللحم + سلطة",
+    "صينية كوسا باللبن",
+    "كبة مقلية + سلطة",
+    "كبة مشوية + لبن",
+    "كبة لبنية + رز",
+    "كبة بالصينية + سلطة",
+    "شيش برك + رز أبيض",
+    "شيخ المحشي + لبن",
+    "فتة حمص + لبن",
+    "فتة مكدوس",
+    "يبرق (ورق عنب) + لبن",
+    "فريكة بالدجاج",
+    "رز بحمص ولحم",
+    "أرز بالشعيرية + دجاج",
+    "لحمة بكرز",
+    "شاورما دجاج + بطاطا",
+    "شاورما لحم + سلطة",
+    "يخنة فاصولياء خضرا + رز",
+    "يخنة بسلة باللحم + رز",
+    "لبن مطبوخ + رز",
+    "رشوف",
+    "مكمورة",
+    "ثريد",
+    "رز بالبازيلا والجزر + دجاج",
+    "كبسة دجاج",
+    "عدس مطبوخ + خبز",
+    "مجدّرة + سلطة",
+    "فاصولياء بيضا باللحم + رز",
+    "كوسا محشي باللبن",
+    "دجاج محمّر بالبطاطا",
+    "صينية دجاج بالفرن",
+    "صينية سمك بالفرن",
+    "شوربة عدس + خبز",
+    "شوربة خضار"
+  ];
 
- const suhoor = [
-  "لبنة + زيت زيتون + خبز + خيار",
-  "لبنة + زعتر + خبز",
-  "لبنة + عسل + خبز",
-  "فول بزيت الزيتون + بندورة",
-  "حمص + خبز + خيار",
-  "بيض مسلوق + خضار",
-  "بيض مقلي خفيف + خبز",
-  "جبنة بيضا + زيت زيتون + خبز",
-  "جبنة قشقوان + خبز",
-  "جبنة حلوم مشوية + خبز",
-  "زبادي + تمر",
-  "زبادي + موز",
-  "زبادي + فواكه",
-  "زبادي + عسل",
-  "لبن رايب + تمر",
-  "شوفان بالحليب",
-  "شوفان بالحليب + موز",
-  "شوفان بالحليب + تمر",
-  "شوفان بالزبادي",
-  "توست أسمر + لبنة",
-  "توست أسمر + بيض",
-  "توست أسمر + جبنة",
-  "ساندويش فلافل خفيف",
-  "فلافل + خضار",
-  "فتة لبن خفيفة",
-  "فتة حمص خفيفة",
-  "بطاطا مسلوقة + لبن",
-  "سلطة خضار + خبز",
-  "سلطة فواكه",
-  "تمر + مكسرات",
-  "تمر + حليب",
-  "حليب + بسكويت شوفان",
-  "كعك بالسمسم + لبنة",
-  "كعك بالسمسم + جبنة",
-  "مناقيش زعتر صغيرة",
-  "مناقيش جبنة صغيرة",
-  "فطيرة سبانخ",
-  "فطيرة جبنة",
-  "رز بحليب",
-  "سميدية",
-  "مهلبية",
-  "موز + زبدة فول سوداني",
-  "تفاح + زبدة فول سوداني",
-  "بيض مسلوق + لبنة",
-  "حمص بالطحينة + خبز",
-  "فول مدمس خفيف",
-  "كوب لبن + تمر"
-];
-
+  const suhoor = [
+    "لبنة + زيت زيتون + خبز + خيار",
+    "لبنة + زعتر + خبز",
+    "لبنة + عسل + خبز",
+    "فول بزيت الزيتون + بندورة",
+    "حمص + خبز + خيار",
+    "بيض مسلوق + خضار",
+    "بيض مقلي خفيف + خبز",
+    "جبنة بيضا + زيت زيتون + خبز",
+    "جبنة قشقوان + خبز",
+    "جبنة حلوم مشوية + خبز",
+    "زبادي + تمر",
+    "زبادي + موز",
+    "زبادي + فواكه",
+    "زبادي + عسل",
+    "لبن رايب + تمر",
+    "شوفان بالحليب",
+    "شوفان بالحليب + موز",
+    "شوفان بالحليب + تمر",
+    "شوفان بالزبادي",
+    "توست أسمر + لبنة",
+    "توست أسمر + بيض",
+    "توست أسمر + جبنة",
+    "ساندويش فلافل خفيف",
+    "فلافل + خضار",
+    "فتة لبن خفيفة",
+    "فتة حمص خفيفة",
+    "بطاطا مسلوقة + لبن",
+    "سلطة خضار + خبز",
+    "سلطة فواكه",
+    "تمر + مكسرات",
+    "تمر + حليب",
+    "حليب + بسكويت شوفان",
+    "كعك بالسمسم + لبنة",
+    "كعك بالسمسم + جبنة",
+    "مناقيش زعتر صغيرة",
+    "مناقيش جبنة صغيرة",
+    "فطيرة سبانخ",
+    "فطيرة جبنة",
+    "رز بحليب",
+    "سميدية",
+    "مهلبية",
+    "موز + زبدة فول سوداني",
+    "تفاح + زبدة فول سوداني",
+    "بيض مسلوق + لبنة",
+    "حمص بالطحينة + خبز",
+    "فول مدمس خفيف",
+    "كوب لبن + تمر"
+  ];
 
   function rand(arr){ return arr[Math.floor(Math.random()*arr.length)]; }
 
-  function pickIftar(){
-    document.getElementById("result").textContent = "الإفطار: " + rand(iftar);
+  const iftarLine = document.getElementById("iftarLine");
+  const suhoorLine = document.getElementById("suhoorLine");
+  const iftarText = document.getElementById("iftarText");
+  const suhoorText = document.getElementById("suhoorText");
+  const hint = document.getElementById("hint");
+
+  function showOnlyIftar(value){
+    iftarText.textContent = value;
+    iftarLine.style.display = "flex";
+    suhoorLine.style.display = "none";
+    hint.style.display = "none";
   }
-  function pickSuhoor(){
-    document.getElementById("result").textContent = "السحور: " + rand(suhoor);
+
+  function showOnlySuhoor(value){
+    suhoorText.textContent = value;
+    suhoorLine.style.display = "flex";
+    iftarLine.style.display = "none";
+    hint.style.display = "none";
   }
-  function pickBoth(){
-    document.getElementById("result").textContent =
-      "الإفطار: " + rand(iftar) + " | " + "السحور: " + rand(suhoor);
+
+  function showBoth(iftarValue, suhoorValue){
+    iftarText.textContent = iftarValue;
+    suhoorText.textContent = suhoorValue;
+    iftarLine.style.display = "flex";
+    suhoorLine.style.display = "flex";
+    hint.style.display = "none";
   }
+
+  function pickIftar(){ showOnlyIftar(rand(iftar)); }
+  function pickSuhoor(){ showOnlySuhoor(rand(suhoor)); }
+  function pickBoth(){ showBoth(rand(iftar), rand(suhoor)); }
 </script>
 </body>
 </html>
