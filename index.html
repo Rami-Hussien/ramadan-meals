@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>رفيق رمضان | وجبات اليوم</title>
+  <title>رفيقي في رمضان | وجبات اليوم</title>
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -11,149 +11,137 @@
 
   <style>
     :root{
-      --bg:#2B1F3A;
-      --gold:#C8A86B;
-      --gold2:#BFA063;
-      --text:#F3E7D3;
-      --muted:#C9BFAF;
-      --panel: rgba(255,255,255,0.035);
-      --panel2: rgba(0,0,0,0.14);
-      --mosque:#5A4B72;
-      --stroke: rgba(200,168,107,0.9);
-      --strokeSoft: rgba(200,168,107,0.55);
+      --bg:#D3E2FF;
+      --text:#2E2A68;
+      --muted:rgba(46,42,104,.7);
+
+      --panel:#ffffffcc;
+      --panel2:rgba(46,42,104,.05);
+
+      --primary:#2E2A68;
+      --gold:#F2B705;
+      --gold2:#E7AA00;
+
+      --stroke:rgba(46,42,104,.25);
+      --strokeSoft:rgba(46,42,104,.18);
+      --mosque:rgba(46,42,104,.5);
     }
 
     *{box-sizing:border-box}
+
     body{
       margin:0;
-      font-family: "Tajawal", system-ui, -apple-system, Arial;
-      background: var(--bg);
-      color: var(--text);
+      font-family:"Tajawal",system-ui,-apple-system,Arial;
+      background:var(--bg);
+      color:var(--text);
       min-height:100vh;
       display:flex;
       align-items:center;
       justify-content:center;
       padding:18px;
-      position:relative;
-      overflow-x:hidden;
-    }
-
-    /* ultra-subtle geometric dots pattern */
-    body::before{
-      content:"";
-      position:fixed;
-      inset:0;
-      background:
-        radial-gradient(circle at 15% 20%, rgba(255,255,255,.06) 0 1px, transparent 2px) 0 0 / 28px 28px,
-        radial-gradient(circle at 80% 70%, rgba(255,255,255,.05) 0 1px, transparent 2px) 0 0 / 34px 34px;
-      opacity:.06;
-      pointer-events:none;
     }
 
     .card{
-      width:min(760px, 96vw);
+      width:min(760px,96vw);
+      background:var(--panel);
       border:1px solid var(--stroke);
-      border-radius:20px;
-      padding:22px 20px 18px;
-      background: var(--panel);
+      border-radius:22px;
+      padding:24px 20px 22px;
+      box-shadow:0 14px 30px rgba(46,42,104,.12);
       position:relative;
       overflow:hidden;
-      box-shadow: 0 10px 30px rgba(0,0,0,.18);
     }
-
-    /* decorative top & bottom arabesque line ornaments */
-    .ornament{
-      position:absolute;
-      left:14px;
-      right:14px;
-      height:26px;
-      opacity:.75;
-      pointer-events:none;
-    }
-    .ornament.top{ top:10px; }
-    .ornament.bottom{ bottom:10px; transform: scaleY(-1); }
 
     .header{
+      text-align:center;
       display:flex;
       flex-direction:column;
       align-items:center;
-      text-align:center;
       gap:6px;
-      margin-top:18px; /* to clear top ornament */
-      margin-bottom:14px;
+      margin-bottom:18px;
     }
+
+    .logo{
+      width:64px;
+      margin-bottom:4px;
+    }
+
     .title{
       font-size:30px;
       font-weight:700;
-      letter-spacing:.2px;
     }
+
     .subtitle{
       font-size:14px;
       color:var(--muted);
+      max-width:48ch;
       line-height:1.7;
-      max-width:46ch;
     }
 
     .actions{
       display:flex;
       gap:10px;
-      flex-wrap:wrap;
       justify-content:center;
-      margin:16px 0 12px;
+      flex-wrap:wrap;
+      margin:18px 0 14px;
     }
 
     button{
-      border:1px solid var(--stroke);
-      background: rgba(200,168,107,0.12); /* clearer than transparent */
-      color: var(--text);
+      min-width:140px;
       padding:11px 16px;
-      border-radius:12px;
-      cursor:pointer;
       font-size:16px;
       font-weight:700;
-      transition: transform .08s ease, background .2s ease, border-color .2s ease;
-      min-width: 140px;
+      border-radius:12px;
+      border:1px solid var(--stroke);
+      cursor:pointer;
+      background:var(--primary);
+      color:#fff;
+      box-shadow:0 8px 18px rgba(46,42,104,.18);
+      transition:.15s ease;
     }
-    button:hover{
-      background: rgba(200,168,107,0.18);
-      border-color: rgba(200,168,107,1);
-    }
-    button:active{ transform: scale(.985); }
 
-    /* result panel */
+    button:hover{
+      filter:brightness(1.06);
+    }
+
+    .actions button:last-child{
+      background:linear-gradient(180deg,var(--gold),var(--gold2));
+      color:var(--primary);
+      border-color:rgba(231,170,0,.6);
+    }
+
     .result{
+      background:var(--panel2);
       border:1px dashed var(--strokeSoft);
       border-radius:16px;
-      padding:14px 14px;
-      background: var(--panel2);
+      padding:14px;
     }
 
     .line{
       display:flex;
       gap:10px;
       align-items:flex-start;
-      justify-content:flex-start;
-      padding:10px 10px;
+      padding:10px;
       border-radius:12px;
-      background: rgba(255,255,255,0.03);
-      border: 1px solid rgba(255,255,255,0.04);
+      background:#ffffff80;
+      border:1px solid rgba(46,42,104,.06);
     }
-    .line + .line{ margin-top:10px; }
+
+    .line + .line{margin-top:10px;}
 
     .label{
-      flex:0 0 auto;
-      border:1px solid rgba(200,168,107,.55);
-      color: rgba(243,231,211,.95);
-      padding:6px 10px;
-      border-radius:999px;
       font-weight:700;
       font-size:14px;
-      background: rgba(200,168,107,0.08);
-      min-width: 86px;
+      padding:6px 12px;
+      border-radius:999px;
+      background:rgba(242,183,5,.25);
+      border:1px solid rgba(231,170,0,.55);
+      color:var(--primary);
+      min-width:86px;
       text-align:center;
     }
+
     .value{
-      flex:1 1 auto;
       font-size:18px;
       line-height:1.8;
       padding-top:2px;
@@ -162,36 +150,31 @@
     .hint{
       margin-top:10px;
       text-align:center;
-      font-size:12.5px;
-      color: rgba(243,231,211,.72);
+      font-size:13px;
+      color:var(--muted);
     }
 
-    /* subtle mosque silhouette */
     .mosque{
-      margin-top:14px;
-      display:flex;
-      justify-content:center;
-      opacity:.50;
-      padding-bottom:18px; /* clear bottom ornament */
+      margin-top:18px;
+      opacity:.5;
+      text-align:center;
     }
-    svg{max-width:520px; width:100%; height:auto;}
+
+    svg{max-width:520px;width:100%;}
   </style>
 </head>
 
 <body>
   <main class="card">
-    <!-- Ornament Top -->
-    <svg class="ornament top" viewBox="0 0 900 60" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-      <path d="M50 30C110 8 160 8 220 30C280 52 330 52 390 30C450 8 500 8 560 30C620 52 670 52 730 30C790 8 840 8 900 30"
-            stroke="rgba(200,168,107,0.45)" stroke-width="3" stroke-linecap="round"/>
-      <path d="M80 30c20-14 40-14 60 0c-20 14-40 14-60 0Z" fill="rgba(200,168,107,0.22)"/>
-      <path d="M360 30c20-14 40-14 60 0c-20 14-40 14-60 0Z" fill="rgba(200,168,107,0.22)"/>
-      <path d="M640 30c20-14 40-14 60 0c-20 14-40 14-60 0Z" fill="rgba(200,168,107,0.22)"/>
-    </svg>
 
     <div class="header">
+      <!-- لوجو -->
+      <img src="images/nr-logo (1).png" alt="NR Design Logo" class="logo">
+
       <div class="title">وجبات اليوم</div>
-      <div class="subtitle">اقتراحات فلسطينية وأردنية وسورية للإفطار والسحور — تتغيّر عشوائيًا كل مرة</div>
+      <div class="subtitle">
+        اقتراحات إفطار وسحور تتغيّر عشوائيًا — رفيقك اليومي في رمضان
+      </div>
     </div>
 
     <div class="actions">
@@ -200,144 +183,55 @@
       <button onclick="pickBoth()">اقترح الاثنين</button>
     </div>
 
-    <section class="result" id="resultWrap">
-      <div class="line" id="iftarLine" style="display:none;">
+    <section class="result">
+      <div class="line" id="iftarLine" style="display:none">
         <div class="label">الإفطار</div>
         <div class="value" id="iftarText"></div>
       </div>
 
-      <div class="line" id="suhoorLine" style="display:none;">
+      <div class="line" id="suhoorLine" style="display:none">
         <div class="label">السحور</div>
         <div class="value" id="suhoorText"></div>
       </div>
 
-      <div class="hint" id="hint">اضغط زر لاقتراح وجبة ✨</div>
+      <div class="hint" id="hint">اضغط زر لاقتراح وجبة 🌙</div>
     </section>
 
     <div class="mosque" aria-hidden="true">
-      <svg viewBox="0 0 900 140" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M140 120V70C140 60 148 52 158 52H190V120" stroke="rgba(90,75,114,.85)" stroke-width="6" />
-        <path d="M740 120V70C740 60 748 52 758 52H790V120" stroke="rgba(90,75,114,.85)" stroke-width="6" />
-        <path d="M280 120V62C280 44 294 30 312 30H588C606 30 620 44 620 62V120" stroke="rgba(90,75,114,.85)" stroke-width="6"/>
-        <path d="M450 30C430 40 420 58 420 78V120H480V78C480 58 470 40 450 30Z" fill="rgba(90,75,114,.55)"/>
-        <path d="M80 120H820" stroke="rgba(200,168,107,.55)" stroke-width="3"/>
+      <svg viewBox="0 0 900 140" fill="none">
+        <path d="M140 120V70C140 60 148 52 158 52H190V120" stroke="var(--mosque)" stroke-width="6"/>
+        <path d="M740 120V70C740 60 748 52 758 52H790V120" stroke="var(--mosque)" stroke-width="6"/>
+        <path d="M280 120V62C280 44 294 30 312 30H588C606 30 620 44 620 62V120" stroke="var(--mosque)" stroke-width="6"/>
+        <path d="M450 30C430 40 420 58 420 78V120H480V78C480 58 470 40 450 30Z" fill="var(--mosque)"/>
       </svg>
     </div>
 
-    <!-- Ornament Bottom -->
-    <svg class="ornament bottom" viewBox="0 0 900 60" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-      <path d="M50 30C110 8 160 8 220 30C280 52 330 52 390 30C450 8 500 8 560 30C620 52 670 52 730 30C790 8 840 8 900 30"
-            stroke="rgba(200,168,107,0.45)" stroke-width="3" stroke-linecap="round"/>
-      <path d="M80 30c20-14 40-14 60 0c-20 14-40 14-60 0Z" fill="rgba(200,168,107,0.22)"/>
-      <path d="M360 30c20-14 40-14 60 0c-20 14-40 14-60 0Z" fill="rgba(200,168,107,0.22)"/>
-      <path d="M640 30c20-14 40-14 60 0c-20 14-40 14-60 0Z" fill="rgba(200,168,107,0.22)"/>
-    </svg>
   </main>
 
 <script>
   const iftar = [
-    "مقلوبة دجاج + سلطة لبن",
-    "مقلوبة باذنجان + سلطة",
-    "مقلوبة زهرة + لبن",
-    "مسخّن (خبز طابون ودجاج وبصل وسماق) + لبن",
-    "مسخّن رول + سلطة خضراء",
-    "مفتول فلسطيني + سلطة",
-    "مفتول باللحم + لبن",
-    "منسف دجاج + لبن",
-    "منسف لحم + لبن",
-    "كفتة بالطحينة + رز",
-    "كفتة بندورة + رز",
-    "ملوخية + رز + ليمون",
-    "محشي كوسا وباذنجان",
-    "ورق دوالي + سلطة زبادي",
-    "محشي ملفوف + لبن",
-    "صينية بطاطا باللحم + سلطة",
-    "صينية كوسا باللبن",
-    "كبة مقلية + سلطة",
-    "كبة مشوية + لبن",
+    "مقلوبة دجاج + سلطة",
+    "مسخّن + لبن",
+    "مفتول فلسطيني",
+    "منسف دجاج",
     "كبة لبنية + رز",
-    "كبة بالصينية + سلطة",
-    "شيش برك + رز أبيض",
-    "شيخ المحشي + لبن",
-    "فتة حمص + لبن",
-    "فتة مكدوس",
-    "يبرق (ورق عنب) + لبن",
-    "فريكة بالدجاج",
-    "رز بحمص ولحم",
-    "أرز بالشعيرية + دجاج",
-    "لحمة بكرز",
-    "شاورما دجاج + بطاطا",
-    "شاورما لحم + سلطة",
-    "يخنة فاصولياء خضرا + رز",
-    "يخنة بسلة باللحم + رز",
-    "لبن مطبوخ + رز",
-    "رشوف",
-    "مكمورة",
-    "ثريد",
-    "رز بالبازيلا والجزر + دجاج",
-    "كبسة دجاج",
-    "عدس مطبوخ + خبز",
-    "مجدّرة + سلطة",
-    "فاصولياء بيضا باللحم + رز",
-    "كوسا محشي باللبن",
-    "دجاج محمّر بالبطاطا",
-    "صينية دجاج بالفرن",
-    "صينية سمك بالفرن",
-    "شوربة عدس + خبز",
-    "شوربة خضار"
+    "ملوخية + رز",
+    "محشي كوسا وباذنجان",
+    "كبسة دجاج"
   ];
 
   const suhoor = [
-    "لبنة + زيت زيتون + خبز + خيار",
-    "لبنة + زعتر + خبز",
-    "لبنة + عسل + خبز",
-    "فول بزيت الزيتون + بندورة",
-    "حمص + خبز + خيار",
+    "لبنة + زيت زيتون + خبز",
     "بيض مسلوق + خضار",
-    "بيض مقلي خفيف + خبز",
-    "جبنة بيضا + زيت زيتون + خبز",
-    "جبنة قشقوان + خبز",
-    "جبنة حلوم مشوية + خبز",
     "زبادي + تمر",
-    "زبادي + موز",
-    "زبادي + فواكه",
-    "زبادي + عسل",
-    "لبن رايب + تمر",
     "شوفان بالحليب",
-    "شوفان بالحليب + موز",
-    "شوفان بالحليب + تمر",
-    "شوفان بالزبادي",
-    "توست أسمر + لبنة",
-    "توست أسمر + بيض",
-    "توست أسمر + جبنة",
-    "ساندويش فلافل خفيف",
-    "فلافل + خضار",
-    "فتة لبن خفيفة",
-    "فتة حمص خفيفة",
-    "بطاطا مسلوقة + لبن",
-    "سلطة خضار + خبز",
-    "سلطة فواكه",
-    "تمر + مكسرات",
-    "تمر + حليب",
-    "حليب + بسكويت شوفان",
-    "كعك بالسمسم + لبنة",
-    "كعك بالسمسم + جبنة",
-    "مناقيش زعتر صغيرة",
-    "مناقيش جبنة صغيرة",
-    "فطيرة سبانخ",
-    "فطيرة جبنة",
-    "رز بحليب",
-    "سميدية",
-    "مهلبية",
-    "موز + زبدة فول سوداني",
-    "تفاح + زبدة فول سوداني",
-    "بيض مسلوق + لبنة",
-    "حمص بالطحينة + خبز",
-    "فول مدمس خفيف",
-    "كوب لبن + تمر"
+    "جبنة بيضا + خبز",
+    "تمر + حليب"
   ];
 
-  function rand(arr){ return arr[Math.floor(Math.random()*arr.length)]; }
+  function rand(arr){
+    return arr[Math.floor(Math.random()*arr.length)];
+  }
 
   const iftarLine = document.getElementById("iftarLine");
   const suhoorLine = document.getElementById("suhoorLine");
@@ -345,31 +239,28 @@
   const suhoorText = document.getElementById("suhoorText");
   const hint = document.getElementById("hint");
 
-  function showOnlyIftar(value){
-    iftarText.textContent = value;
+  function pickIftar(){
+    iftarText.textContent = rand(iftar);
     iftarLine.style.display = "flex";
     suhoorLine.style.display = "none";
     hint.style.display = "none";
   }
 
-  function showOnlySuhoor(value){
-    suhoorText.textContent = value;
+  function pickSuhoor(){
+    suhoorText.textContent = rand(suhoor);
     suhoorLine.style.display = "flex";
     iftarLine.style.display = "none";
     hint.style.display = "none";
   }
 
-  function showBoth(iftarValue, suhoorValue){
-    iftarText.textContent = iftarValue;
-    suhoorText.textContent = suhoorValue;
+  function pickBoth(){
+    iftarText.textContent = rand(iftar);
+    suhoorText.textContent = rand(suhoor);
     iftarLine.style.display = "flex";
     suhoorLine.style.display = "flex";
     hint.style.display = "none";
   }
-
-  function pickIftar(){ showOnlyIftar(rand(iftar)); }
-  function pickSuhoor(){ showOnlySuhoor(rand(suhoor)); }
-  function pickBoth(){ showBoth(rand(iftar), rand(suhoor)); }
 </script>
+
 </body>
 </html>
