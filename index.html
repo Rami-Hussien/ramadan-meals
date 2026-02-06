@@ -49,19 +49,19 @@
       box-shadow:0 14px 30px rgba(46,42,104,.12);
       position:relative;
       overflow:hidden;
+      margin-top: 80px;
     }
 
     /* صورة الهلال/الفانوس نازلة من فوق */
     .ramadan-art{
-      position:absolute;
+      position:fixed;
       top:0;
       left:50%;
       transform:translateX(-50%);
-      width:180px;
+      width:120px;
       max-width:45%;
       z-index:1;
       pointer-events:none;
-      opacity:.95;
     }
 
     .header{
@@ -175,7 +175,6 @@
       margin-top:22px;
       display:flex;
       justify-content:center;
-      opacity:.75;
       position:relative;
       z-index:2;
     }
@@ -186,7 +185,7 @@
 
     @media (max-width:520px){
       .card{ padding-top:130px; }
-      .ramadan-art{ width:160px; }
+      .ramadan-art{ width:80px; }
       .title{ font-size:28px; }
       .value{ font-size:17px; }
     }
